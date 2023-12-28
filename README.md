@@ -11,7 +11,7 @@ Experiment to show album cover from home assistant media player on M5Stack dial 
    ```
    sudo docker run -d \
      --name=imgproxy \
-     -p 8088:8080\
+     -p 8088:8080 \
      --restart unless-stopped \
      darthsim/imgproxy
    ```
@@ -38,7 +38,13 @@ Experiment to show album cover from home assistant media player on M5Stack dial 
    ![mqtt](https://i.imgur.com/W8y48h6.png)
    
    
-   
-More information about the 8.8 inch touch screen, connected to a raspberry pi, showing a home assistant dashboard, can be found here:
+
+The 8.8 inch touch screen, in above picture, is connected to a raspberry pi and can show Home Assistant dashboards.
+More information can be found here:
 
 https://github.com/mhwlng/kiosk-server
+
+3d-printed enclosures can be found here:
+
+https://www.printables.com/@mhwlng_888536/collections/920676
+
