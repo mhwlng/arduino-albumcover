@@ -44,7 +44,13 @@ More information can be found here:
 
 https://github.com/mhwlng/kiosk-server
 
-3d-printed enclosures can be found here:
+The 3d-printed enclosure can be found here:
 
 https://www.printables.com/@mhwlng_888536/collections/920676
 
+
+
+note that espMqttClient.h references this specific library:
+
+https://github.com/bertmelis/espMqttClient
+ 
