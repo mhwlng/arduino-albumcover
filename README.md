@@ -35,7 +35,7 @@ Experiment to show album cover from home assistant media player on M5Stack dial 
        - ......
    ```
 
-   ![mqtt](https://i.imgur.com/W8y48h6.png)
+   ![mqtt](https://i.imgur.com/lcRaE1f.png)
    
    
 
