@@ -11,7 +11,7 @@ Experiment to show album cover from home assistant media player on M5Stack dial 
    ```
    sudo docker run -d \
      --name=imgproxy \
-     -p 8088:8080 \
+     -p 8088:8080  \
      --restart unless-stopped \
      darthsim/imgproxy
    ```
