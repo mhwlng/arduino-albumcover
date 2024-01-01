@@ -80,50 +80,53 @@ void onMqttMessage(const espMqttClientTypes::MessageProperties& properties, cons
     Serial.println("Publish received:");
     Serial.printf("  topic: %s\n  payload:", topic);
 
-    int home_assistant_prefix_len = strlen(home_assistant_prefix);
-    char* strval = new char[home_assistant_prefix_len + len - 1];
-    memcpy(strval, home_assistant_prefix, home_assistant_prefix_len);
-    memcpy(strval + home_assistant_prefix_len, payload + 1, len - 2);
-    strval[home_assistant_prefix_len + len - 2] = '\0';
-
-    Serial.println(strval);
-
-    int imgproxy_prefix_len = strlen(imgproxy_prefix);
-    int imgproxy_postfix_len = strlen(imgproxy_postfix);
-
-    unsigned int base64_len = encode_base64_length(home_assistant_prefix_len + len);
-
-    char* base64 = new char[imgproxy_prefix_len + base64_len + imgproxy_postfix_len + 1];
-
-    memcpy(base64, imgproxy_prefix, imgproxy_prefix_len);
-
-    encode_base64((unsigned char*)strval, strlen((char*)strval), (unsigned char*)base64 + imgproxy_prefix_len);
-
-    delete[] strval;
-
-    memcpy(base64 + imgproxy_prefix_len + base64_len, imgproxy_postfix, imgproxy_postfix_len);
-
-    base64[imgproxy_prefix_len + base64_len + imgproxy_postfix_len] = '\0';
-
-
-    Serial.println((char*)base64);
-
-    int retries = 3;
-
-    while (retries--)
+    if (strcmp (topic, mqtt_media_player_picture_topic)== 0)
     {
-        bool status = M5.Display.drawJpgUrl((char*)base64, 0, 0);
+        int home_assistant_prefix_len = strlen(home_assistant_prefix);
+        char* strval = new char[home_assistant_prefix_len + len - 1];
+        memcpy(strval, home_assistant_prefix, home_assistant_prefix_len);
+        memcpy(strval + home_assistant_prefix_len, payload + 1, len - 2);
+        strval[home_assistant_prefix_len + len - 2] = '\0';
 
-        Serial.println(status);
+        Serial.println(strval);
 
-        if (status)
-            break;
+        int imgproxy_prefix_len = strlen(imgproxy_prefix);
+        int imgproxy_postfix_len = strlen(imgproxy_postfix);
 
-        Serial.println("RETRY drawJpgUrl");
+        unsigned int base64_len = encode_base64_length(home_assistant_prefix_len + len);
 
+        char* base64 = new char[imgproxy_prefix_len + base64_len + imgproxy_postfix_len + 1];
+
+        memcpy(base64, imgproxy_prefix, imgproxy_prefix_len);
+
+        encode_base64((unsigned char*)strval, strlen((char*)strval), (unsigned char*)base64 + imgproxy_prefix_len);
+
+        delete[] strval;
+
+        memcpy(base64 + imgproxy_prefix_len + base64_len, imgproxy_postfix, imgproxy_postfix_len);
+
+        base64[imgproxy_prefix_len + base64_len + imgproxy_postfix_len] = '\0';
+
+
+        Serial.println((char*)base64);
+
+        int retries = 3;
+
+        while (retries--)
+        {
+            bool status = M5.Display.drawJpgUrl((char*)base64, 0, 0);
+
+            Serial.println(status);
+
+            if (status)
+                break;
+
+            Serial.println("RETRY drawJpgUrl");
+
+        }
+
+        delete[] base64;
     }
-
-    delete[] base64;
 
 }
 
